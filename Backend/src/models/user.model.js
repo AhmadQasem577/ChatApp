@@ -7,27 +7,27 @@ const userSchema = new mongoose.Schema(
             required: true,
             unique: true,
         },
+        fullName: {
+            type: String,
+            required: true,
+        },
         password: {
             type: String,
             required: true,
-            minLingth: 8,
-            maxLingth: 30,
-        },
-        name: {
-            type: String,
-            required: true,
+            minLength: 8,   // تم التصحيح هنا
+            
         },
         profilePicture: {   
             type: String,
             default: "",
             required: false,
         },
-        
-
-    },{
+    },
+    {
         timestamps: true,
     }
 );
-const user = mongoose.model("User", userSchema);
 
-export default user;
+const User = mongoose.model("User", userSchema);
+
+export default User;
