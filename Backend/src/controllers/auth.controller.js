@@ -1,6 +1,8 @@
 import { generateToken } from '../lib/Utils.js';
 import User from '../models/user.model.js';
 import bcrypt from 'bcryptjs';
+import cloudinary from '../lib/cloudinary.js';
+
 
 /* it is async function that handles the signup process we gave it res and req as parameters because we are using express
     becouse we will use it in the route request and response object.
@@ -112,4 +114,32 @@ export const logout = async (req, res) => {
         console.log("Error in logout controller", error.message);
         res.status(500).json({ message: "Internal server error" });
     }
+};
+
+export const updateProfile = async (req, res) => {
+try {
+        const {profilePicture, fullName} = req.body;
+        const userID=req.user._id ;
+        
+        if(!profilePicture || !fullName) return res.status(400).json({message: "All fields are required"});
+        const UploadResponse=await cloudinary.uploader.upload(profilePicture);
+        const updatedUser= User.findByIdAndUpdate(userID, {
+            profilePicture: UploadResponse.secure_url,
+            fullName,
+        },{new:true});
+
+        res.status(200).json({message: "User updated successfully", user: {
+          
+            fullName: updatedUser.fullName,
+            profilePicture: updatedUser.profilePicture, 
+        }});
+
+} catch (error) {
+    
+    console.log("Error in updateProfile controller", error.message);
+    res.status(500).json({ message: "Internal server error" });
+}
+
+
+
 };
