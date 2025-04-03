@@ -109,6 +109,7 @@ export const logout = async (req, res) => {
     try {
         // Clear the token cookie to log out the user
         res.clearCookie('token', { httpOnly: true, sameSite: 'strict' });
+        
         res.status(200).json({ message: "User logged out successfully" });
     } catch (error) {
         console.log("Error in logout controller", error.message);
@@ -139,7 +140,21 @@ try {
     console.log("Error in updateProfile controller", error.message);
     res.status(500).json({ message: "Internal server error" });
 }
+}
 
-
+export const checkAuth = async (req, res) => {
+    try {
+        res.status(200).json({
+            message: "User is authenticated",
+            user: {
+                email: req.user.email,
+                fullName: req.user.fullName,
+                profilePicture: req.user.profilePicture, 
+            },
+        });
+    } catch (error) {
+        console.log("Error in checkAuth controller", error.message);
+        res.status(500).json({ message: "Internal server error" });
+    }
 
 };
