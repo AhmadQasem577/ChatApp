@@ -4,13 +4,14 @@ import User from '../models/user.model.js';
 export const protectRoute = async (req, res, next) => {
     try{
         const token = req.cookies.token;
+        // Check if the token exists in the request cookies
         if(!token) return res.status(401).json({message: "Unauthorized"});
 
         // Verify the token using the secret key from environment variables
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         if(!decoded) return res.status(401).json({message: "Unauthorized"});
 
-        
+        // Find the user associated with the token in the database
         const user = await User.findById(decoded.userID).select("-password -__v");
         if(!user) return res.status(401).json({message: "Unauthorized"});
 
