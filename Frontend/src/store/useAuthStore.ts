@@ -1,7 +1,7 @@
-
 import {create} from 'zustand';
 import axiosInstance from '../lib/axios';
 import axios from 'axios';
+import toast from 'react-hot-toast';
 
 type AuthStore = {
   authUser: any | null;
@@ -42,8 +42,14 @@ export const useAuthStore:any = create<AuthStore>((set) => ({
     try {
       set({ isSigningUp: true });
       await axiosInstance.post('/auth/signup', data);
+      toast.success('Sign up successful! Please log in.');
     } catch (error) {
       console.error('Error signing up:', axios.isAxiosError(error) ? error.response?.data : error);
+      if (axios.isAxiosError(error)) {
+        toast.error(error.response?.data.message || 'An error occurred during sign up.');
+      } else {
+        toast.error('An unexpected error occurred. Please try again later.');
+      }
     } finally {
       set({ isSigningUp: false });
     }
@@ -53,8 +59,14 @@ export const useAuthStore:any = create<AuthStore>((set) => ({
       set({ isLoggingIn: true });
       const response = await axiosInstance.post('/auth/login', data);
       set({ authUser: response.data });
+      toast.success('Login successful!');
     } catch (error) {
       console.error('Error logging in:', error);
+      if (axios.isAxiosError(error)) {
+        toast.error(error.response?.data.message || 'An error occurred during login.');
+      } else {
+        toast.error('An unexpected error occurred. Please try again later.');
+      }
     } finally {
       set({ isLoggingIn: false });
     }
@@ -63,8 +75,14 @@ export const useAuthStore:any = create<AuthStore>((set) => ({
     try {
       await axiosInstance.post('/auth/logout');
       set({ authUser: null });
+      toast.success('Logout successful!');
     } catch (error) {
       console.error('Error logging out:', error);
+      if (axios.isAxiosError(error)) {
+        toast.error(error.response?.data.message || 'An error occurred during logout.');
+      } else {
+        toast.error('An unexpected error occurred. Please try again later.');
+      }
     }
   },
   updateProfile: async (data: any) => {
@@ -72,8 +90,14 @@ export const useAuthStore:any = create<AuthStore>((set) => ({
       set({ isUpdatingProfile: true });
       const response = await axiosInstance.put('/auth/update-profile', data);
       set({ authUser: response.data });
+      toast.success('Profile updated successfully!');
     } catch (error) {
       console.error('Error updating profile:', error);
+      if (axios.isAxiosError(error)) {
+        toast.error(error.response?.data.message || 'An error occurred while updating profile.');
+      } else {
+        toast.error('An unexpected error occurred. Please try again later.');
+      }
     } finally {
       set({ isUpdatingProfile: false });
     }
