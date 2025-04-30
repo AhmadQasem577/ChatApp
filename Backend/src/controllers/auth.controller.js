@@ -119,21 +119,17 @@ export const logout = async (req, res) => {
 
 export const updateProfile = async (req, res) => {
 try {
-        const {profilePicture, fullName} = req.body;
+        const {profilePic} = req.body;
         const userID=req.user._id ;
         
-        if(!profilePicture || !fullName) return res.status(400).json({message: "All fields are required"});
-        const UploadResponse=await cloudinary.uploader.upload(profilePicture);
-        const updatedUser= User.findByIdAndUpdate(userID, {
+        if(!profilePic) return res.status(400).json({message: "All fields are required"});
+        const UploadResponse=await cloudinary.uploader.upload(profilePic);
+        const updatedUser= await User.findByIdAndUpdate(userID, {
             profilePicture: UploadResponse.secure_url,
-            fullName,
+            
         },{new:true});
 
-        res.status(200).json({message: "User updated successfully", user: {
-          
-            fullName: updatedUser.fullName,
-            profilePicture: updatedUser.profilePicture, 
-        }});
+        res.status(200).json(updatedUser);
 
 } catch (error) {
     
@@ -144,14 +140,7 @@ try {
 
 export const checkAuth = async (req, res) => {
     try {
-        res.status(200).json({
-            message: "User is authenticated",
-            user: {
-                email: req.user.email,
-                fullName: req.user.fullName,
-                profilePicture: req.user.profilePicture, 
-            },
-        });
+        res.status(200).json(req.user);
     } catch (error) {
         console.log("Error in checkAuth controller", error.message);
         res.status(500).json({ message: "Internal server error" });

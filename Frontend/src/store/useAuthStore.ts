@@ -82,13 +82,13 @@ export const useAuthStore:any = create<AuthStore>((set) => ({
         toast.error(error.response?.data.message || 'An error occurred during logout.');
       } else {
         toast.error('An unexpected error occurred. Please try again later.');
-      }
+      } 
     }
   },
   updateProfile: async (data: any) => {
+    set({ isUpdatingProfile: true });
     try {
-      set({ isUpdatingProfile: true });
-      const response = await axiosInstance.put('/auth/update-profile', data);
+      const response = await axiosInstance.put('/auth/profile/edit', data);
       set({ authUser: response.data });
       toast.success('Profile updated successfully!');
     } catch (error) {

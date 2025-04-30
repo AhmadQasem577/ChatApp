@@ -18,10 +18,14 @@ const app = express();
 const PORT = process.env.PORT ;
 
 
+
+
 //middleware initialization
-app.use(express.json());// Middleware to parse JSON data from the request body
+app.use(express.json({limit: '50mb'})); // Increased payload size limit
+app.use(express.urlencoded({limit: '50mb', extended: true})); // Also handle URL-encoded data
 app.use(cookieParser()); // Middleware to parse cookies from the request
 app.use(cors({ origin: process.env.CLIENT_URL, credentials: true })); // Middleware to enable CORS for the specified client URL
+
 
 //intilize routes 
 app.use("/api/auth", authRoutes);
