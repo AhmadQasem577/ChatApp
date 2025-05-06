@@ -9,6 +9,7 @@ import cloudinary from '../lib/cloudinary.js';
 */
 
 export const signup = async (req, res) => {
+    
     //here we are destructuring the body of the request to get the fullName, email and password from the request body.
     const {fullName, email, password } = req.body;
     // try catch block is used to handle errors that may occur during the execution of the code inside the try block.
@@ -77,7 +78,9 @@ export const signup = async (req, res) => {
 export const login = async (req, res) => {
     const {email, password} = req.body;
     try{
+        
         const user = await User.findOne({email});
+        
 
         //we dont tell the user if the email or password is wrong for security reasons.
         if(!user) return res.status(400).json({message: "Invalid credentials"});
@@ -106,6 +109,7 @@ export const login = async (req, res) => {
 
 };
 export const logout = async (req, res) => {
+    
     try {
         // Clear the token cookie to log out the user
         res.clearCookie('token', { httpOnly: true, sameSite: 'strict' });
