@@ -13,7 +13,8 @@ Hello! This is my **first full-stack project**. While I'm aware of some critical
 - A foundation for improvement
 
 > **Note**: This is a demo project. In production environments, sensitive files should never be exposed.
-> **Note**: as you see i fully removed .env from the repo and the history but the node moudules are still in the history, I just added it to gitignore 
+
+> **Note**: as you see i fully removed .env from the repo and the history but the node moudules are still in the history, I just added it to gitignore. 
 
 
 
