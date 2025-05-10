@@ -32,7 +32,7 @@ type FormData = {
         </div>
 
         <div className='flex flex-col justify-center items-center p-6'>
-          <MessageSquare className='text-blue-500 w-10 h-10 mb-4' />
+          <MessageSquare className='text-lime-500 w-10 h-10 mb-4' />
           <h2 className='text-2xl font-bold mb-4'>Login</h2>
 
           <form onSubmit={handleSubmit(onSubmit)} className='w-full max-w-sm'>
@@ -66,7 +66,7 @@ type FormData = {
             <button
               type='submit'
               disabled={isLoggingIn}
-              className={`bg-blue-500 text-white rounded-md p-2 w-full ${isLoggingIn ? 'opacity-50 cursor-not-allowed' : ''}`}
+              className={`bg-lime-500 text-white rounded-md p-2 w-full ${isLoggingIn ? 'opacity-50 cursor-not-allowed' : ''}`}
             >
               {isLoggingIn ? <Loader className='animate-spin' /> : 'Login'}
             </button>
@@ -74,7 +74,7 @@ type FormData = {
           </form>
           <p className='mt-4 text-sm'>
             Don't have an account?{' '}
-            <Link to='/signup' className='text-blue-500 hover:underline'>
+            <Link to='/signup' className='text-lime-500 hover:underline'>
               Sign Up
             </Link>
           </p>

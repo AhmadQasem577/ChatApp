@@ -1,10 +1,14 @@
+import Navbar from "../Components/Navbar"
+
 
 
  const HomePage = () => {
+  
   return (
     
     <>
-      <div className='min-h-screen grid lg:grid-cols-2'>
+      
+      <div className='min-h-screen grid lg:grid-cols-2 '>
         <div className='hidden lg:flex flex-col justify-center items-center bg-gray-100'>
 
         </div>

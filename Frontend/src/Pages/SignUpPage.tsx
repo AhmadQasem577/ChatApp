@@ -21,7 +21,7 @@ type FormData = {
   const [showPassword, setShowPassword] = useState(false)
 
    
-   const {signUp, isSignUp} = useAuthStore()
+   const {signUp, isSigningUp} = useAuthStore()
 
  
   const onSubmit = async (data: FormData) => {
@@ -98,9 +98,9 @@ type FormData = {
             <label htmlFor="showPassword">Show Password</label>
           </div>
 
-          <button disabled={isSignUp} type="submit" className='bg-blue-500 text-white p-2 rounded w-full'>Sign Up</button>
+          <button disabled={isSigningUp} type="submit" className='bg-lime-500 text-white p-2 rounded w-full'>Sign Up</button>
           {
-            isSignUp ?(
+            isSigningUp ?(
               <>
               <Loader className='animate-spin text-blue-500 w-6 h-6 mt-4' />
               <p className='text-gray-500 mt-2'>Creating your account...</p>    
@@ -110,7 +110,7 @@ type FormData = {
 
         </form>
 
-        <p className='mt-4'>Already have an account? <Link to="/login" className='link text-blue-500'>login</Link></p>
+        <p className='mt-4'>Already have an account? <Link to="/login" className='link text-lime-500'>login</Link></p>
       </div>
     </div>
   )

@@ -36,7 +36,7 @@ const App = () => {
   console.log("Auth User: ", authUser)
   return (
     <div >
-      <Navbar />
+      {authUser?<Navbar />: ''}
       <Routes>
         <Route path="/" element={authUser? <HomePage/>: <Navigate to="/login" />} />
         <Route path="/signup" element={!authUser?<SignUpPage/>: <Navigate to="/" />  } />
@@ -49,11 +49,14 @@ const App = () => {
       </Routes>
 
       <Toaster
-        position="top-center"
+        position="bottom-right"
         reverseOrder={false}
+        gutter={8}  
+        
         toastOptions={{
+          
           className: '',
-          duration: 5000,
+          duration: 400,
           style: {
             background: '#363636',
             color: '#fff',
