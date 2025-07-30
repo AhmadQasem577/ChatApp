@@ -35,7 +35,7 @@ const App = () => {
 
   console.log("Auth User: ", authUser)
   return (
-    <div >
+    <div className="h-full flex flex-col " >
       {authUser?<Navbar />: ''}
       <Routes>
         <Route path="/" element={authUser? <HomePage/>: <Navigate to="/login" />} />
@@ -56,7 +56,7 @@ const App = () => {
         toastOptions={{
           
           className: '',
-          duration: 400,
+          duration: 700,
           style: {
             background: '#363636',
             color: '#fff',

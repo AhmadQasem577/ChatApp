@@ -1,6 +1,7 @@
 import User from '../models/message.model.js';
 import Message from '../models/message.model.js';
 import { v2 as cloudinary } from 'cloudinary';
+import { getReceiverSocketId, io } from "../lib/socket.js";
 export const getUsersFromSidebar=async (req, res) => {
     try {
         const logedUser = req.user._id; // Assuming req.user is populated by the middleware
@@ -53,10 +54,13 @@ export const sendMessage=async (req, res) => {
             text,
             image: imageURL 
         });
-        await newMessage.save(); 
+            await newMessage.save(); 
+            const receiverSocketId = getReceiverSocketId(receiverId);
+        if (receiverSocketId) {
+        io.to(receiverSocketId).emit("newMessage", newMessage);
+        }
 
-        //////////////////////////////////////////////////////////////////////////////////
-        //todo: real time functionality goes here
+        
 
         res.status(201).json(newMessage); // Send the newly created message as a response
 

@@ -1,24 +1,27 @@
-import Navbar from "../Components/Navbar"
+
+import ChatContainer from "../Components/ChatContainer";
+import ChatList from "../Components/ChatList"
+import NoChatSelected from "../Components/NoChatSelected";
+import { useChatStore } from "../store/useChatStore"
 
 
 
  const HomePage = () => {
   
+  const {selectedUser}= useChatStore();
   return (
     
-    <>
-      
-      <div className='min-h-screen grid lg:grid-cols-2 '>
-        <div className='hidden lg:flex flex-col justify-center items-center bg-gray-100'>
-
-        </div>
-
-        <div className='flex flex-col justify-center items-center p-6'>
-          <h2 className='text-2xl font-bold mb-4'>Home Page</h2>
-          <p className='text-lg'>This is where you can find all the latest updates.</p>
+    <div className="h-screen bg-gray-200">
+      <div className="flex items-center justify-center pt-20 px-4">
+        <div className="bg-gray-100 rounded-lg shadow-black w-full max-w-6xl h-[calc(100vh-8rem)]">
+          <div className="flex h-full rounded-lg overflow-hidden">
+            <ChatList/>
+            {!selectedUser? <NoChatSelected/>: <ChatContainer/>}
+          </div>
         </div>
       </div>
-    </>
+
+    </div>
   )
 }
 export default HomePage

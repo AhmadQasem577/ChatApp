@@ -20,7 +20,7 @@ import { useEffect, useState } from "react"
   
   return (
     <>
-    <div className=" fixed top-0 left-0 right-0 z-50">
+    <div className="  top-0 left-0 right-0 z-50">
     <div className=" flex flex-row justify-between  bg-lime-400 p-4  ">
       
         <Link className="flex flex-row  items-center gap-4  font-semibold text-lg hover:cursor-pointer" onClick={()=>toast.success("home")} to={'/'}>
